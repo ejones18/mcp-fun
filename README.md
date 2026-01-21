@@ -166,19 +166,34 @@ Your MCP endpoint will be: `https://<your-app>.azurecontainerapps.io/mcp/mcp`
 
 ## 🔧 Customizing the Tool
 
+> ⚠️ **Important**: The example code is configured for an abitrary forecasting model. You **must** modify `server.py` to match your own Azure ML model's expected input schema (column names, data types) and output format.
+
 Edit `server.py` to modify the MCP tool:
+
+1. **Change the function parameters** to match your model's inputs
+2. **Update the DataFrame columns** to match your model's expected schema
+3. **Modify the docstring** to describe your tool accurately (this is what AI agents see)
 
 ```python
 @mcp.tool()
 def invoke_azure_ml_endpoint(
-    distributor_id: float,
-    delivery_date: str,
+    # Change these parameters to match your model's inputs
+    your_param_1: float,
+    your_param_2: str,
 ) -> float:
-    # Modify the input data structure for your model
+    """
+    Update this docstring to describe your tool - AI agents use this to understand
+    when and how to call your tool.
+    """
+    # Modify the DataFrame columns to match your model's expected schema
     df = pd.DataFrame(
-        [[float(distributor_id), delivery_date]], 
-        columns=["YourColumn1", "YourColumn2"]  # Change column names
+        [[float(your_param_1), your_param_2]], 
+        columns=["YourColumn1", "YourColumn2"]  # Change to your model's column names
     )
+    
+    # The payload structure may need adjustment - test your model in the 
+    # Azure ML Studio 'Test' tab to see the expected format
+    data = {"input_data": df.to_dict(orient='split')}
     # ... rest of the function
 ```
 
