@@ -1,0 +1,41 @@
+# =============================================================================
+# Git Ignore for MCP Server Project
+# =============================================================================
+
+# Azure Developer CLI
+.azure/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+.eggs/
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Environment files (contain secrets - NEVER commit these!)
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/

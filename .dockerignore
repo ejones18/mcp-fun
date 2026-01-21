@@ -1,0 +1,45 @@
+# =============================================================================
+# Docker Ignore for MCP Server
+# =============================================================================
+# Files to exclude from Docker build context for smaller images
+
+# Git
+.git
+.gitignore
+
+# Python artifacts
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv
+venv/
+ENV/
+.eggs/
+*.egg-info/
+*.egg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Azure (contains deployment state, not needed in container)
+.azure/
+
+# Environment files (secrets should come from Container Apps config)
+*.env
+.env.*
+
+# Docker files (not needed inside container)
+Dockerfile
+docker-compose*.yml
+
+# Documentation (not needed in container)
+*.md
+docs/
+
+# Infrastructure code
+infra/

@@ -1,0 +1,16 @@
+# =============================================================================
+# MCP Server Dependencies
+# =============================================================================
+# Core dependencies for running an MCP server on Azure Container Apps
+# that calls Azure ML managed online endpoints.
+
+# Data processing
+pandas>=2.0.0,<3.0.0
+
+# MCP SDK - requires 1.10.0+ for transport_security parameter
+mcp>=1.10.0
+
+# Web framework
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+starlette>=0.38.0
