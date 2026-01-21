@@ -244,6 +244,53 @@ curl -X POST $AML_SCORE_URL \
 - [Azure ML Managed Endpoints](https://learn.microsoft.com/azure/machine-learning/concept-endpoints)
 - [Azure AI Foundry](https://ai.azure.com)
 
+## ⚠️ Production Considerations
+
+This sample is designed for learning and prototyping. Before deploying to production, consider the following:
+
+### 🔐 Authentication & Authorization
+
+- **No endpoint authentication**: The MCP endpoint is publicly accessible. For production, consider:
+  - [Azure Container Apps authentication](https://learn.microsoft.com/azure/container-apps/authentication) (Easy Auth)
+  - API key validation in your application code
+  - [Azure API Management](https://learn.microsoft.com/azure/api-management/) as a gateway
+  - OAuth 2.0 / Microsoft Entra ID integration
+
+### 🌐 Network Security
+
+- **Public ingress**: The Container App is exposed to the internet. For enterprise scenarios, consider:
+  - [VNet integration](https://learn.microsoft.com/azure/container-apps/vnet-custom) for private networking
+  - [Private endpoints](https://learn.microsoft.com/azure/container-apps/networking) to restrict access
+  - Network Security Groups (NSGs) to control traffic
+  - Connecting to Azure ML endpoints via private endpoints
+
+### 🔑 Secrets Management
+
+- **Inline secrets**: Secrets are stored directly in Container Apps configuration. For production:
+  - Use [Azure Key Vault](https://learn.microsoft.com/azure/container-apps/manage-secrets) with managed identity
+  - Rotate secrets regularly
+  - Avoid storing secrets in parameter files (use Azure DevOps/GitHub secrets for CI/CD)
+
+### 📊 Monitoring & Observability
+
+- **Basic logging only**: Consider adding:
+  - [Application Insights](https://learn.microsoft.com/azure/container-apps/opentelemetry-agents) for distributed tracing
+  - Custom metrics for model inference latency and error rates
+  - Alerting for failures and performance degradation
+
+### 🏗️ Infrastructure
+
+- **Single region**: This sample deploys to one region. For high availability:
+  - Deploy to multiple regions with traffic manager
+  - Consider [Azure Front Door](https://learn.microsoft.com/azure/frontdoor/) for global load balancing
+  - Implement health probes and failover strategies
+
+### 🛡️ Additional Enterprise Requirements
+
+- **CORS**: Currently allows all origins (`*`). Restrict to specific domains in production.
+- **Rate limiting**: No rate limiting configured. Consider API Management or application-level throttling.
+- **Compliance**: Ensure deployment meets your organization's compliance requirements (SOC 2, HIPAA, etc.)
+
 ## 📄 License
 
 MIT License - See [LICENSE](LICENSE) for details.
