@@ -1,4 +1,4 @@
-# MCP Server on Azure Container Apps
+# Azure ML MCP Server on Azure Container Apps
 
 Deploy a [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server to Azure Container Apps that exposes Azure ML endpoints as tools for AI agents.
 
